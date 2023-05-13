@@ -1,6 +1,5 @@
 {
   "name": "reactjs-chrome",
-  "author": "Himanshu Batra",
   "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
@@ -27,6 +26,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@webcomponents/custom-elements": "^1.6.0",
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
     "react-router-dom": "6.2",
