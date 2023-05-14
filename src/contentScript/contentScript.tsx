@@ -9,6 +9,7 @@ const App: React.FC<{}> = () => {
 
   const [textSelected, setTextSelected] = useState(null);
   const [hashtags, setHashtags] = useState<Array<string>>([]);
+  const [generatedSummary, setgeneratedSummary] = useState('')
 
   const getSelectedText = () => window.getSelection().toString();
 
@@ -22,9 +23,11 @@ const App: React.FC<{}> = () => {
       newNode.addEventListener('click', async () => {
         console.log(getSelectedText());
         try {
-          const { summary, tags } = await getSummaryAndTagsFromAI(getSelectedText());
-          setTextSelected(summary);
-          setHashtags(tags);
+          const data = await getSummaryAndTagsFromAI(getSelectedText());
+          console.log(data)
+          setgeneratedSummary(data.summary);
+          setHashtags(data.hashtags);
+          setTextSelected(getSelectedText());
 
         } catch (error) {
           console.error(error)
@@ -40,7 +43,7 @@ const App: React.FC<{}> = () => {
     <>
       {textSelected && (
         <div className='fixed z-50 max-w-md max-h-60 left-1/4 top-1/4 rounded-xl'>
-          <SummaryCard summary={textSelected} tags={hashtags} />
+          <SummaryCard summary={generatedSummary} tags={hashtags} />
         </div>
       ) }
 
