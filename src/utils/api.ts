@@ -36,10 +36,16 @@ export async function fetchAllNotes(): Promise<any> {
 
   } catch (error) {
     console.error(error);
-  }
-  
- 
+  }  
+}
 
-  
-  
+export const sortNotes =  (sortBy: string, notes) => {
+  if(sortBy === 'Oldest'){
+    return notes.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+    
+  }
+
+  else{
+    return notes.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
 }
