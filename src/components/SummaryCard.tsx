@@ -29,9 +29,10 @@ const SummaryCard: React.FC<summaryCardProps> = ({ summeryName, summary, tags })
                             {summary.substring(0, 260)}....
                         </p>)
                     }
-                    <button onClick={toggleFullText} className="text-base text-gray-700 underline">
-                        {isFullTextDisplayed ? 'Read Less' : 'Read More'}
-                    </button>
+                    {summary.length > 260 && <button id='button' onClick={toggleFullText} className="text-base text-gray-700 underline">
+                        {isFullTextDisplayed  ? 'Read Less' : 'Read More'}
+                    </button>}
+                    
 
 
                 </div>

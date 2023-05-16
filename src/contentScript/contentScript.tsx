@@ -1,8 +1,6 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import '../assets/tailwind.css'
-import LoadingSpinner from "../components/LoadingSpinner";
 import LoadingSummaryCard from "../components/LoadingSummaryCard";
 import SummaryCard from "../components/SummaryCard";
 import { getSummaryAndTagsFromAI } from "../utils/api";
@@ -13,7 +11,6 @@ const App: React.FC<{}> = () => {
   const [hashtags, setHashtags] = useState<Array<string>>([]);
   const [generatedSummary, setgeneratedSummary] = useState('')
   const [toggle, settoggle] = useState('Enable');
-  //const [tooltipTop, settooltipTop] = useState(0)
   const [isLoading, setisLoading] = useState(false)
 
   const getSelectedText = () => window.getSelection().toString();
@@ -23,27 +20,24 @@ const App: React.FC<{}> = () => {
       console.log(sender.tab ?
         "from a content script:" + sender.tab.url :
         "from the extension");
-      //console.log(request)
       settoggle(request.toggle);
     }
   );
 
   document.addEventListener("click", () => {
     if (getSelectedText().length > 1) {
-
       let range = window.getSelection().getRangeAt(0);
       let newNode = document.createElement("span");
       newNode.innerHTML = getSelectedText();
       range.deleteContents();
       range.insertNode(newNode);
-      //settooltipTop(newNode.getBoundingClientRect().top)
+    
       newNode.addEventListener('click', async () => {
         if (toggle === 'Enable') {
-          console.log(getSelectedText());
+      
           try {
             setisLoading(true);
             const data = await getSummaryAndTagsFromAI(getSelectedText());
-            console.log(data)
             setisLoading(false)
             setgeneratedSummary(data.summary);
             setHashtags(data.hashtags);
@@ -76,6 +70,7 @@ const App: React.FC<{}> = () => {
 
   )
 }
+export default App;
 
 const appContainer = document.createElement('div');
 document.body.appendChild(appContainer);
