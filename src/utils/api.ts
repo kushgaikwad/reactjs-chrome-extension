@@ -2,7 +2,7 @@ export async function getSummaryAndTagsFromAI(
   selectedText: string
 ): Promise<any> {
   const data = { selectedText };
-  console.log(data);
+  
 
   try {
     const response = await fetch("http://localhost:3000/chat-gpt-ai/message", {
@@ -14,13 +14,13 @@ export async function getSummaryAndTagsFromAI(
       body: JSON.stringify(data),
     });
 
-    // const result = await response.json();
+    
     if (!response.ok) {
       throw new Error("Error calling AI..");
     }
     const result = await response.json();
-    console.log(result);
-    // console.log(result.tags);
+    
+    
     return result;
   } catch (error) {
     console.error(error);
@@ -38,21 +38,20 @@ export async function fetchAllNotes(): Promise<any> {
 }
 
 export const sortNotes = (sortBy: string, notes) => {
-  console.log("Entered");
-  console.log(sortBy);
+ 
   if (sortBy === "Oldest") {
     const sortedNotes = notes.sort(
       (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     );
-    console.log(sortedNotes);
+  
     return sortedNotes;
   } else {
     const sortedNotes = notes.sort(
       (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
-    console.log(sortedNotes);
+   
     return sortedNotes;
   }
 };

@@ -33,13 +33,9 @@ const SummaryCard: React.FC<summaryCardProps> = ({ summeryName, summary, tags })
                         {isFullTextDisplayed  ? 'Read Less' : 'Read More'}
                     </button>}
                     
-
-
                 </div>
                 <div className="px-6 pt-4 pb-2">
                     {tags && tags.map((tag, index) => <HashtagContainer tag={tag} key={index} />)}
-                    {/* <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">#travel</span>
-                <span className="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full">#winter</span> */}
                 </div>
             </div>
         </>

@@ -12,7 +12,7 @@ const Popup = () => {
     const [toggle, setToggle] = useState('Enable');
 
     const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        // event.preventDefault();
+        event.preventDefault();
         setSortOrder(event.target.value as "Latest" | "Oldest");
 
     };
