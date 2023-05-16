@@ -15,8 +15,8 @@ export async function getSummaryAndTagsFromAI(
     });
 
     // const result = await response.json();
-    if(!response.ok){
-      throw new Error('Error calling AI..')
+    if (!response.ok) {
+      throw new Error("Error calling AI..");
     }
     const result = await response.json();
     console.log(result);
@@ -28,24 +28,31 @@ export async function getSummaryAndTagsFromAI(
 }
 
 export async function fetchAllNotes(): Promise<any> {
-
   try {
-    const res = await fetch('http://localhost:3000/notes');
+    const res = await fetch("http://localhost:3000/notes");
     const data = await res.json();
     return data;
-
   } catch (error) {
     console.error(error);
-  }  
-}
-
-export const sortNotes =  (sortBy: string, notes) => {
-  if(sortBy === 'Oldest'){
-    return notes.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
-    
-  }
-
-  else{
-    return notes.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }
 }
+
+export const sortNotes = (sortBy: string, notes) => {
+  console.log("Entered");
+  console.log(sortBy);
+  if (sortBy === "Oldest") {
+    const sortedNotes = notes.sort(
+      (a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+    );
+    console.log(sortedNotes);
+    return sortedNotes;
+  } else {
+    const sortedNotes = notes.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+    console.log(sortedNotes);
+    return sortedNotes;
+  }
+};

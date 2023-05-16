@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { createRoot } from "react-dom/client";
 import '../assets/tailwind.css'
+import LoadingSpinner from "../components/LoadingSpinner";
+import LoadingSummaryCard from "../components/LoadingSummaryCard";
 import SummaryCard from "../components/SummaryCard";
 import { getSummaryAndTagsFromAI } from "../utils/api";
 
@@ -11,7 +13,8 @@ const App: React.FC<{}> = () => {
   const [hashtags, setHashtags] = useState<Array<string>>([]);
   const [generatedSummary, setgeneratedSummary] = useState('')
   const [toggle, settoggle] = useState('Enable');
-  const [tooltipTop, settooltipTop] = useState(0)
+  //const [tooltipTop, settooltipTop] = useState(0)
+  const [isLoading, setisLoading] = useState(false)
 
   const getSelectedText = () => window.getSelection().toString();
 
@@ -33,18 +36,21 @@ const App: React.FC<{}> = () => {
       newNode.innerHTML = getSelectedText();
       range.deleteContents();
       range.insertNode(newNode);
-      settooltipTop( newNode.getBoundingClientRect().top)
+      //settooltipTop(newNode.getBoundingClientRect().top)
       newNode.addEventListener('click', async () => {
         if (toggle === 'Enable') {
           console.log(getSelectedText());
           try {
+            setisLoading(true);
             const data = await getSummaryAndTagsFromAI(getSelectedText());
             console.log(data)
+            setisLoading(false)
             setgeneratedSummary(data.summary);
             setHashtags(data.hashtags);
             setTextSelected(getSelectedText());
 
           } catch (error) {
+            setisLoading(false)
             console.error(error)
           }
         }
@@ -57,13 +63,13 @@ const App: React.FC<{}> = () => {
 
   return (
     <>
-
-      {textSelected && (
-       
+    {isLoading && <div className={`fixed z-50 max-w-md max-h-60 left-1/4 top-1/4 rounded-xl`}>
+            <LoadingSummaryCard/>
+          </div>  }
+      {textSelected && (   
            <div className={`fixed z-50 max-w-md max-h-60 left-1/4 top-1/4 rounded-xl`}>
-            <SummaryCard summary={generatedSummary} tags={hashtags} />
+            <SummaryCard summeryName="Smart summary from Frontdoor" summary={generatedSummary} tags={hashtags} />
           </div> 
-       
       )}
 
     </>

@@ -12,15 +12,12 @@ interface note {
 }
 
 interface PopupSummariesProps {
-
     notes: Array<note>;
 }
-
 
 const PopupSummaries: React.FC<PopupSummariesProps> = ({ notes }) => {
     return (
         <div>
-
             {notes.map((note) => <SummaryCard summary={note.summary} tags={note.hashtags} key={note._id} />)}
         </div>
     )
