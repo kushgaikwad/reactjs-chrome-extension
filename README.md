@@ -25,7 +25,7 @@ $ yarn test
 2. Go to Extensions and click on 'Manage Extensions'
 3. Turn on 'Developer Mode' and click on 'Load Unpacked'
 4. Select the 'dist' folder that would have been created in the root folder of this code base.
-5. The extension should be visoble in your extension list.
+5. The extension should be visible in your extensions list.
 6. Selct any text and see the magic!
 
 
