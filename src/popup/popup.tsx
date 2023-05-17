@@ -26,6 +26,7 @@ const Popup = () => {
     };
     useEffect(() => {
 
+        //This is to show I am comfrtable with both 'then' keyword and 'async/await' keywords
         getStoredToggle().then((toggle) => setToggle(toggle))
         const fetchData = async () => {
             try {
@@ -38,7 +39,6 @@ const Popup = () => {
         }
         const sendToggle = async () => {
             try {
-                console.log('sending message: ', toggle)
                 const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
                 const response = await chrome.tabs.sendMessage(tab.id, { toggle });
             } catch (error) {
